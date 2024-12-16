@@ -1,0 +1,44 @@
+[map]
+width = 2048
+height = 1024
+nodataval = 9999
+
+[elements]
+reference = ["Al", "Si", "Mg", "O"]
+strict = ["Al", "Si", "Mg"]
+
+[elements.energies]
+# FeL should be after O, for its succesful fitting, a explained in our report 
+"O" = 0.525
+"Mg" = 1.25
+"Al" = 1.48
+"Si" = 1.74
+"CaKa" = 3.69
+"CaKb" = 4.01
+"Ti" = 4.51
+"Cr" = 5.41
+"Mn" = 5.90
+"FeK" = 6.40
+"FeL" = 0.71
+
+[find_flares]
+# The following parameters are used in find_flares.py
+timebin = 96             # seconds: Time bin for detection
+datadir = "./data"       # Directory containing the data
+resultsdir = "./results" # Directory to save the results
+Nsigma = true            # Whether to use Nsigma detection threshold
+fit_func = "curve_fit"   # Fitting function to use
+
+[map_flares]
+# The following parameters are used in map_flares.py
+datadir = "./results" # Directory containing the data
+resultsdir = "./maps" # Directory to save the results
+
+[gen_catalog]
+# The following parameters are used in gen_catalog.py
+datadir = "./results" # Directory containing the data
+resultsdir = "./maps" # Directory to save the results
+
+[split_data_and_process_bkg]
+# The following parameters are used in split_data_and_process_bkg.py
+datadir = "./data"       # Directory containing the data
