@@ -3,6 +3,7 @@ import gc
 import json
 import os
 import re
+import warnings
 from multiprocessing import Pool
 
 import numpy as np
@@ -16,7 +17,6 @@ from shapely.geometry import LineString, MultiPolygon, Polygon
 from shapely.ops import split, unary_union
 
 from utils import parse_toml_params
-import warnings
 
 warnings.filterwarnings("ignore")
 
@@ -444,14 +444,12 @@ class MapFlares:
             if isinstance(polygon, MultiPolygon):
                 for poly in polygon.geoms:
                     assert ratio != 0 or error != 0
-                    area = poly.area
-                    weighted_ratios.append((poly, ratio / (area * error**2)))
-                    weights.append((poly, 1 / (area * error**2)))
+                    weighted_ratios.append((poly, ratio / (error**2)))
+                    weights.append((poly, 1 / (error**2)))
             else:
                 assert ratio != 0 or error != 0
-                area = polygon.area
-                weighted_ratios.append((polygon, ratio / (area * error**2)))
-                weights.append((polygon, 1 / (area * error**2)))
+                weighted_ratios.append((polygon, ratio / (error**2)))
+                weights.append((polygon, 1 / (error**2)))
 
         if len(weighted_ratios) == 0:
             return np.zeros((self.height, self.width), dtype=np.float32), np.zeros(
@@ -557,9 +555,9 @@ if __name__ == "__main__":
             mapper.calculate_all_ratios()
             for ref_element in ref_elements:
                 for element in elements:
-                    weighted_ratios[
-                        (ref_element, element)
-                    ] += mapper.raster_weighted_ratios[(ref_element, element)]
+                    weighted_ratios[(ref_element, element)] += (
+                        mapper.raster_weighted_ratios[(ref_element, element)]
+                    )
                     weights[(ref_element, element)] += mapper.raster_weights[
                         (ref_element, element)
                     ]
