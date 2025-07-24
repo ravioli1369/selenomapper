@@ -290,7 +290,9 @@ def fit_specutils(
             )
         )
     try:
-        gauss_params = fit_lines(spectrum, initial_gauss, window=0.125 * u.keV, get_fit_info=True)  # type: ignore
+        gauss_params = fit_lines(
+            spectrum, initial_gauss, window=0.125 * u.keV, get_fit_info=True
+        )  # type: ignore
         fit_status = "Success"
     except Exception as e:
         gauss_params = initial_gauss
@@ -340,7 +342,9 @@ def fit_specutils(
                 stddev=sigma0 * u.keV,  # type: ignore
             )
             try:
-                gauss = fit_lines(spectrum_sub, initial_gauss, window=0.125 * u.keV, get_fit_info=True)  # type: ignore
+                gauss = fit_lines(
+                    spectrum_sub, initial_gauss, window=0.125 * u.keV, get_fit_info=True
+                )  # type: ignore
                 fit_status = "Success"
             except Exception as e:
                 fit_status = f"Failed with error: {e}"

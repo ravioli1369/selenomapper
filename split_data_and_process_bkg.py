@@ -248,7 +248,6 @@ def phases(tup):
 
 
 if __name__ == "__main__":
-
     params = parse_toml_params("config.toml")
 
     parser = argparse.ArgumentParser()

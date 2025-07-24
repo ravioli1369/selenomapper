@@ -1,11 +1,12 @@
 import argparse
+import gc
 import json
 import os
 import shutil
 import time
+import warnings
 from glob import glob
 from multiprocessing import Pool
-import gc
 
 import matplotlib.animation as animation
 import matplotlib.pyplot as plt
@@ -16,11 +17,10 @@ from astropy.coordinates import get_body, get_sun
 from astropy.io import fits
 from astropy.stats import sigma_clipped_stats
 from astropy.time import Time, TimeDelta
-import warnings
 
 warnings.filterwarnings("ignore")
 
-from utils import parse_toml_params, detect_lines, display_text
+from utils import detect_lines, display_text, parse_toml_params
 
 mlp_params = {
     "figure.figsize": [9, 6],
@@ -299,10 +299,14 @@ class FindFlares:
         bkg_jds = self.bkg_masterfiles[phase]["JD"]
 
         split_index_year_back = np.searchsorted(  # type: ignore
-            bkg_jds, float(one_year_ago.jd), side="right"  # type: ignore
+            bkg_jds,
+            float(one_year_ago.jd),
+            side="right",  # type: ignore
         )
         split_index_current_time = np.searchsorted(  # type: ignore
-            bkg_jds, float(time_.jd), side="right"  # type: ignore
+            bkg_jds,
+            float(time_.jd),
+            side="right",  # type: ignore
         )
 
         self.bkg_counts = self.bkg_counts[
@@ -520,7 +524,7 @@ class FindFlares:
             ],
             dtype=object,
         )
-        
+
         with Pool(8) as p:
             params = p.starmap(
                 detect_lines,
@@ -539,40 +543,58 @@ class FindFlares:
                 ],
             )
 
-
         if self.animate:
             step = self.delta_index
             fig = plt.figure(figsize=(10, 7))
-            ax = plt.axes(xlim=(0, 7), ylim=(-20, 400), xlabel="Energies (keV)", ylabel="Counts", title=f"{year}-{month}-{day}")
-            
+            ax = plt.axes(
+                xlim=(0, 7),
+                ylim=(-20, 400),
+                xlabel="Energies (keV)",
+                ylabel="Counts",
+                title=f"{year}-{month}-{day}",
+            )
+
             num_plts = len(self.elements) + 1
             cmap = plt.get_cmap("tab20")
             plts = []
             energies = np.arange(2048) * 13.5 / 1000
             mask = np.where((energies <= 7))
             energies = energies[mask]
-            
+
             def init():
-                plts.append(ax.plot([], [], color=cmap(0), label="Spectrum", alpha=0.6)[0])
-                
+                plts.append(
+                    ax.plot([], [], color=cmap(0), label="Spectrum", alpha=0.6)[0]
+                )
+
                 for i, element in enumerate(self.elements):
-                    plts.append(ax.plot([], [], color=cmap(i+1), label=element)[0])
+                    plts.append(ax.plot([], [], color=cmap(i + 1), label=element)[0])
                 ax.legend(loc="upper right")
                 return plts
-            
+
             def animate(i):
-                plts[0].set_data(energies, mean_combined_light_counts_list[step * i][mask])
+                plts[0].set_data(
+                    energies, mean_combined_light_counts_list[step * i][mask]
+                )
                 for j, element in enumerate(self.elements):
-                    if params[step*i] is None or element not in elems[step*i] or params[step*i][element]["fit_status"] != "Success":
-                        plts[j+1].set_data([], [])
+                    if (
+                        params[step * i] is None
+                        or element not in elems[step * i]
+                        or params[step * i][element]["fit_status"] != "Success"
+                    ):
+                        plts[j + 1].set_data([], [])
                     else:
-                        plts[j+1].set_data(energies, params[step*i][element]["fit_function"][mask])
+                        plts[j + 1].set_data(
+                            energies, params[step * i][element]["fit_function"][mask]
+                        )
                     handles, labels = ax.get_legend_handles_labels()
                     ax.legend(handles[:num_plts], labels[:num_plts], loc="upper right")
                 return plts
-            
+
             ani = animation.FuncAnimation(
-                fig, animate, init_func=init, frames=len(mean_combined_light_counts_list) // step 
+                fig,
+                animate,
+                init_func=init,
+                frames=len(mean_combined_light_counts_list) // step,
             )
             ani.save(
                 f"{self.resultsdir}/{year}-{month}-{day}.mp4",
@@ -581,7 +603,7 @@ class FindFlares:
             del ani
             gc.collect()
             plt.close()
-        
+
         for i, (param, mid_jd, coords, altitude, elem) in enumerate(
             zip(params, light_curve_x, all_coords_array, all_altitudes_list, elems)
         ):
@@ -713,7 +735,7 @@ if __name__ == "__main__":
             with open(file, "a") as f:
                 f.write(f"{e}\n")
                 f.close()
-        
+
         del _detector
         gc.collect()
 
@@ -765,6 +787,6 @@ if __name__ == "__main__":
         )
         detector.find_flares(args.year, args.month, args.day)
         display_text(
-            f"Time taken to run {args.year}-{args.month}-{args.day} is {(time.time()-start):.2f} seconds",
+            f"Time taken to run {args.year}-{args.month}-{args.day} is {(time.time() - start):.2f} seconds",
             "green",
         )
