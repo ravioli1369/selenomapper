@@ -21,7 +21,7 @@ Miniconda, a lightweight distribution of Anaconda, can be installed following th
 conda activate isro
 ```
 
-**Now, we need to install the packages in the conda env using pip. We install using pip as conda was not able to resolve dependencies for all the requried packages, therefore we include a `requirements.txt` as well.**
+**Now, we need to install the packages in the conda env using pip. We install using pip as conda was not able to resolve dependencies for all the required packages, therefore we include a `requirements.txt` as well.**
 
 ```bash
 pip install -r requirements.txt
@@ -212,7 +212,7 @@ The Jupyter Notebook `maps/analyze_tiff.ipynb` contains interactive code to visu
 
 Example Command:
 ```bash
-python map_flares.py --datadir "/path/to/data" --resultdir "/path/to/results" --years 2019 2020 --rm --ncores 7
+python map_flares.py --datadir "/path/to/data" --resultsdir "/path/to/results" --years 2019 2020 --rm --ncores 7
 ```
 This will generate the maps and the catalog for each year in the data directory and save them in the results directory. 
 
