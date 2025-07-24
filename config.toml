@@ -42,4 +42,4 @@ resultsdir = "./maps" # Directory to save the results
 
 [split_data_and_process_bkg]
 # The following parameters are used in split_data_and_process_bkg.py
-datadir = "./data"       # Directory containing the data
+datadir = "./data" # Directory containing the data
