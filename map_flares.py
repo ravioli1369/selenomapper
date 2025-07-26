@@ -15,7 +15,6 @@ from rasterio.features import rasterize
 from rasterio.transform import from_bounds
 from shapely.geometry import LineString, MultiPolygon, Polygon
 from shapely.ops import split, unary_union
-
 from utils import parse_toml_params
 
 warnings.filterwarnings("ignore")
@@ -508,7 +507,7 @@ if __name__ == "__main__":
         type=str,
         nargs="+",
         help="Year of the data",
-        default=["2019", "2020", "2021", "2022", "2023", "2024"],
+        default=["2019", "2020", "2021", "2022", "2023", "2024", "2025"],
     )
     parser.add_argument(
         "--resultsdir",
