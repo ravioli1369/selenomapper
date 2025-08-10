@@ -2,14 +2,14 @@ import argparse
 import json
 import os
 import re
+import warnings
 
 import numpy as np
 import tqdm
-import warnings
 
 warnings.filterwarnings("ignore")
 
-from utils import parse_toml_params, display_text
+from utils import display_text, parse_toml_params
 
 
 def apply_cut(
@@ -73,7 +73,7 @@ if __name__ == "__main__":
         "--years",
         nargs="+",
         type=str,
-        default=["2019", "2020", "2021", "2022", "2023", "2024"],
+        default=["2019", "2020", "2021", "2022", "2023", "2024", "2025"],
     )
     args = parser.parse_args()
 
