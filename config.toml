@@ -8,7 +8,7 @@ reference = ["Al", "Si", "Mg", "O"]
 strict = ["Al", "Si", "Mg"]
 
 [elements.energies]
-# FeL should be after O, for its succesful fitting, a explained in our report 
+# FeL should be after O, for its succesful fitting, a explained in our report
 "O" = 0.525
 "Na" = 1.04
 "Mg" = 1.25
@@ -28,7 +28,7 @@ timebin = 96             # seconds: Time bin for detection
 datadir = "./data"       # Directory containing the data
 resultsdir = "./results" # Directory to save the results
 Nsigma = true            # Whether to use Nsigma detection threshold
-fit_func = "curve_fit"   # Fitting function to use
+fit_func = "specutils"   # Fitting function to use
 
 [map_flares]
 # The following parameters are used in map_flares.py
