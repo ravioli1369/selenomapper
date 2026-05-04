@@ -1,2 +1,11 @@
 __pycache__
 .DS_Store
+*.synctex.gz
+*.out
+*.log
+*.fls
+*.fdb_latexmk
+*.blg
+*.aux
+test.ipynb
+test.py
