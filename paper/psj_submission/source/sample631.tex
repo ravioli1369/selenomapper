@@ -1,4 +1,4 @@
-\documentclass[twocolumn,linenumbers,trackchanges]{aastex631}
+\documentclass[twocolumn,linenumbers]{aastex631}
 \let\tablenum\relax
 \usepackage{amsmath}
 \usepackage{multirow}
@@ -17,8 +17,7 @@
 \newcommand\latex{La\TeX}
 \newcommand{\todo}[1]{\textbf{\color{red} TODO: #1}}
 \newcommand{\revone}[1]{#1}
-\definecolor{trackchange}{rgb}{0.75,0,0}
-\definecolor{explain}{rgb}{0,0,0.7}
+\newcommand{\revtwo}[1]{\textbf{#1}}
 \submitjournal{PSJ}
 
 \begin{document}
@@ -456,7 +455,5 @@ We have developed a processing methodology to detect XRF signals from the CLASS 
 
 \bibliography{sample631}{}
 \bibliographystyle{aasjournal}
-
-\listofchanges
 
 \end{document}
