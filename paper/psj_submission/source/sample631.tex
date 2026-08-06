@@ -278,7 +278,9 @@ As a visual guide, we have added Mare boundaries on all maps. These boundaries a
 O/Si and Ca-K$\alpha$/Si maps shown in Figure~\ref{fig:maps2} do not distinguish between the terranes. Oxygen is expected to be in the narrow abundance range of 40-45 wt \% across the Moon, but it is difficult to validate the O/Si map, as there have been no such global measurements previously. The difference in XRF line energies between Si and Ca\revone{, along with the high line energy of Ca results in a larger dependence on the incident solar spectra. This dependence cannot be meaningfully mitigated by taking line intensity ratios (further discussed in \S\ref{sec:limitations}), making} the Ca/Si line ratio not suitable for representing composition. Na/Si, Ti/Si, Cr/Si and Fe-K$\alpha$/Si have lower coverage and are not discussed here.
 
 \subsection{Methodological significance and limitations}\label{sec:limitations}
-\revone{A primary limitation of the current approach is the omission of the incident solar X-ray spectrum in the derivation of line ratios. As shown by \citet{Nittler2001}, the ratio of characteristic XRF lines (e.g., Mg/Si or Al/Si) can vary by a factor of two or more depending on the solar coronal temperature. This dependence is more pronounced for heavier elements like Ca and Fe, which require higher-energy flare activity for excitation. By focusing our analysis on the soft X-ray range (0.5--2~keV) and adjacent elements like Mg and Al, we partially mitigate these effects, as the relative excitation of these lines remains more stable across varying solar conditions than their absolute intensities.}
+\revone{A primary limitation of the current approach is the omission of the incident solar X-ray spectrum in the derivation of line ratios. As shown by \citet{Nittler2001}, the ratio of characteristic XRF lines (e.g., Mg/Si or Al/Si) can vary by a factor of two or more depending on the solar coronal temperature. This dependence is more pronounced for heavier elements like Ca and Fe, which require higher-energy flare activity for excitation. By focusing our analysis on the soft X-ray range (0.5--2~keV) and adjacent elements like Mg and Al, we partially mitigate these effects, as the relative excitation of these lines remains more stable across varying solar conditions than their absolute intensities.} \revtwo{The scattered solar spectrum also contains coronal line emission, which is not negligible at the lower end of our energy range. The Fe$_L$ line is the most affected, as solar Fe-L emission lies at nearly the same energy as the lunar Fe-L fluorescence and is therefore not mitigated by taking a ratio. We accordingly treat the Fe$_L$/Si and Mg\# maps as relative indicators of composition.}
+
+\revtwo{A second limitation is that we do not deconvolve the spectra with the detector response matrix. Since the response is energy dependent and no correction is applied, the measured ratios carry a multiplicative offset that is common to all pixels, affecting the absolute values but not the relative spatial variations used here.}
 
 \revone{Standard XRF analysis requires high-quality, concurrent solar spectral measurements to perform forward modeling. By utilizing an empirical line-ratio method, we can process a significantly larger fraction of the five-year CLASS dataset, including observations where solar monitoring data may be unavailable or difficult to reconcile. This approach enables the generation of high-resolution global maps that provide an approximate yet robust picture of lunar geochemistry, effectively resolving major terranes and geochemical dichotomies.}
 
@@ -333,7 +335,7 @@ The conversion enables better utilization of the global high-resolution maps der
 \subsection{Clustering with Gaussian Mixture Models}
 \revone{To quantify the clustering observed in the elemental line ratio data, we applied an $N$-component Gaussian Mixture Model to the two-dimensional line ratio distributions (e.g., $\mathcal{R}^\text{Mg}_\text{Si}$ versus $\mathcal{R}^\text{Al}_\text{Si}$). Mathematically, the GMM represents the overall probability density of an observed data point as a weighted linear combination of $N$ component multivariate Gaussian distributions \citep{Reynolds2009}. Based on the GMM model, every data point is assigned a posterior probability of belonging to each of the $N$ components, which is then used to assign the color mapping projected onto the lunar surface.}
 
-\revone{While the Bayesian Information Criterion identifies $N=2$ as the optimal number of components for our data, this represents the primary binary dichotomy between the lunar highlands and mare. To better resolve the Moon's geochemical complexity, we also evaluate $N=3$ and $N=5$ configurations, which identify transitional mixing zones and secondary lithologies that provide critical insights into the localized evolution of the lunar crust.}
+\revone{While the Bayesian Information Criterion identifies $N=2$ as the optimal number of components for our data, this represents the primary binary dichotomy between the lunar highlands and mare. To better resolve the Moon's geochemical complexity, we also evaluate $N=3$ and $N=5$ configurations, which} \revtwo{can potentially indicate transitional mixing zones. $N=3$ is the highest component count for which the clusters correspond to distinct geological units, while $N=5$ is included to illustrate the continuity of the transitions between them.}
 
 
 \begin{figure}[h!]
@@ -361,11 +363,11 @@ The high Al/Si data points \revone{($\mathcal{R}^\text{Al}_\text{Si} \gtrsim 1.2
     \caption{\revone{Lunar geochemical classification using Gaussian Mixture Models (GMM) on CLASS XRF line intensity ratios. In all maps, black contours represent mare boundaries from LROC data. Left panels show the 2D density distributions and GMM cluster assignments; right panels show the corresponding spatial distribution on a global Mercator projection.
     \textit{Top row:} 3-component GMM applied to $\mathcal{R}^\text{Al}_\text{Si}$ vs. $\mathcal{R}^\text{Mg}_\text{Si}$ identifying the primary dichotomy between the Basaltic Maria (orange), and the Feldspathic Highlands (green), along with some transitional regions (blue) outlining the Maria and the South Pole Aitken basin.
     \textit{Middle row:} 5-component GMM of $\mathcal{R}^\text{Al}_\text{Si}$ vs. $\mathcal{R}^\text{Mg}_\text{Si}$, further resolving geochemical sub-units and mixing zones. 
-    \textit{Bottom row:} 5-component GMM applied to the distribution of the Mg\# proxy derived from $(\mathcal{R}^\text{Mg}_\text{Si} / [\mathcal{R}^\text{Mg}_\text{Si} + \mathcal{R}^\text{Fe}_\text{Si}])$, showing previously unseen separation of Mare Moscoviense, Australe, Marginis, and Smythii.}}
+    \textit{Bottom row:} 5-component GMM applied to the distribution of the Mg\# proxy derived from $(\mathcal{R}^\text{Mg}_\text{Si} / [\mathcal{R}^\text{Mg}_\text{Si} + \mathcal{R}^\text{Fe}_\text{Si}])$,} \revtwo{grouping Mare Moscoviense, Australe, Marginis, and Smythii separately from the larger nearside basins.}}
     \label{fig:maps3}
 \end{figure*}
 
-We define an analogous quantity to the Magnesium Number (Mg\#) as $\mathcal R^\text{Mg}_\text{Si}/\left({R^\text{Mg}_\text{Si}+R^\text{Fe}_\text{Si}}\right)$  and apply a \revone{5}-component GMM \revone{(Figure~\ref{fig:maps3}, bottom panel)}. Lower Mg\# ratios appear in the mare and higher in highland terrane with a transition \revone{in} between, as observed in previously published Mg\# maps \citep{WANG2021105360,ZHANG2023115505}. The large basins on the near side belong to the lowest Mg\# cluster suggesting younger lava emplacements. In particular, isolated mare, \revone{(Moscoviense, Australe, Marginis, and Smythii) now appear as distinct clusters.}
+We define an analogous quantity to the Magnesium Number (Mg\#) as $\mathcal R^\text{Mg}_\text{Si}/\left({R^\text{Mg}_\text{Si}+R^\text{Fe}_\text{Si}}\right)$  and apply a \revone{5}-component GMM \revone{(Figure~\ref{fig:maps3}, bottom panel)}. Lower Mg\# ratios appear in the mare and higher in highland terrane with a transition \revone{in} between, as observed in previously published Mg\# maps \citep{WANG2021105360,ZHANG2023115505}. The large basins on the near side belong to the lowest Mg\# cluster suggesting younger lava emplacements. In particular, isolated mare, \revtwo{(Moscoviense, Australe, Marginis, and Smythii) are grouped separately from the larger nearside basins. This grouping follows from their similar Al/Si values and does not imply that they are geochemically similar (Figure~\ref{fig:maps1}).}
 
 \subsection{Global maps}
 
@@ -373,11 +375,9 @@ We have generated global high-resolution maps of major elements with XRF line in
 
 The highest Mg/Al regions are associated with the near-side mare basins. Notable regions are the \revone{Aristarchus} plateau and a region close to the boundary of \revone{Oceanus Procellarum} towards the north east. Although the anomalously high Mg/Al ratio ($\approx$ 2 compared to the global average of 0.75) north west of the Aristarchus crater coincides with high olivine abundances on the map derived from the Kaguya multiband imager \citep{2019P&SS..165..230L}, other similar regions do not. These regions are likely to be distinct in mafic content and composition, which requires detailed studies.
 
-The maps in the polar regions (70 - 90$^\circ$) are also shown in the lower panel of Figure~\ref{fig:Mg_GIS}.  South Polar region has an average Mg/Al value of $0.73 \pm 0.12$ while it is $0.64 \pm 0.09$ for the North Polar region. In the 85-90$^\circ$ region where most of the future landing zones are located, the Mg/Al, Al/Si and Mg/Si ratios are similar for the polar regions. 
 
-Table~\ref{tab:average} gives the average values of Mg/Si, Al/Si and Mg/Al ratios for the polar regions, highlands and mare. \revone{As seen from Table~\ref{tab:apollo_comparison}, our values for the Al/Si and Mg/Si ratios are consistently higher ($\sim 2\times$) than those derived from Apollo XRFS \citep{Gloudermans2021}. This is likely because of the systematic underestimation of Si line flux in the Si-based CLASS detectors due to reduced quantum efficiency at the Si K-edge \citep{PILLAI2021114436}. Since the gas proportional counters used in the Apollo missions are free of this effect, our Si-normalized ratios are consistently shifted toward higher absolute values compared to the Apollo baseline.}
 
-  \begin{table}[h]
+\begin{table}[!t]
     \centering
     \begin{tabular}{|c|c|c|c|c|}
         \hline
@@ -391,45 +391,55 @@ Table~\ref{tab:average} gives the average values of Mg/Si, Al/Si and Mg/Al ratio
     \label{tab:average}
 \end{table}
 
-\begin{table}[h]
+\begin{table}[!t]
     \centering
-    \begin{tabular}{|l|c|c|c|}
+    \footnotesize
+    \setlength{\tabcolsep}{3pt}
+    \begin{tabular}{|l|c|c|c|c|}
         \hline
-        Site & Ratio & Apollo XRFS & This Work \\
+        Site & Ratio & Apollo & This Work & \revtwo{This/Apollo} \\
         \hline
-        \multirow{3}{*}{Mare Tranquillitatis}
-            & Al/Si & $0.52 \pm 0.10$ & $1.00 \pm 0.03$ \\
-            & Mg/Si & $0.62 \pm 0.15$ & $1.11 \pm 0.05$ \\
-            & Mg/Al & $1.15 \pm 0.24$ & $1.10 \pm 0.03$ \\
+        \multirow{3}{1.6cm}{Mare Tranquil\-litatis}
+            & Al/Si & $0.52 \pm 0.10$ & $1.00 \pm 0.03$ & \revtwo{$1.92 \pm 0.37$} \\
+            & Mg/Si & $0.62 \pm 0.15$ & $1.11 \pm 0.05$ & \revtwo{$1.79 \pm 0.44$} \\
+            & Mg/Al & $1.15 \pm 0.24$ & $1.10 \pm 0.03$ & \revtwo{$0.96 \pm 0.20$} \\
         \hline
-        \multirow{3}{*}{Mare Fecunditatis}
-            & Al/Si & $0.58 \pm 0.13$ & $1.10 \pm 0.04$ \\
-            & Mg/Si & $0.51 \pm 0.14$ & $1.20 \pm 0.02$ \\
-            & Mg/Al & $0.89 \pm 0.29$ & $1.12 \pm 0.03$ \\
+        \multirow{3}{1.6cm}{Mare Fecunditatis}
+            & Al/Si & $0.58 \pm 0.13$ & $1.10 \pm 0.04$ & \revtwo{$1.90 \pm 0.43$} \\
+            & Mg/Si & $0.51 \pm 0.14$ & $1.20 \pm 0.02$ & \revtwo{$2.35 \pm 0.65$} \\
+            & Mg/Al & $0.89 \pm 0.29$ & $1.12 \pm 0.03$ & \revtwo{$1.26 \pm 0.41$} \\
         \hline
-        \multirow{3}{*}{Hadley-Apennines}
-            & Al/Si & $0.53 \pm 0.19$ & $1.09 \pm 0.03$ \\
-            & Mg/Si & $0.64 \pm 0.20$ & $1.31 \pm 0.05$ \\
-            & Mg/Al & $1.26 \pm 0.30$ & $1.18 \pm 0.01$ \\
+        \multirow{3}{1.6cm}{Hadley-Apennines}
+            & Al/Si & $0.53 \pm 0.19$ & $1.09 \pm 0.03$ & \revtwo{$2.06 \pm 0.74$} \\
+            & Mg/Si & $0.64 \pm 0.20$ & $1.31 \pm 0.05$ & \revtwo{$2.05 \pm 0.64$} \\
+            & Mg/Al & $1.26 \pm 0.30$ & $1.18 \pm 0.01$ & \revtwo{$0.94 \pm 0.22$} \\
         \hline
-        \multirow{3}{*}{Descartes Highlands}
-            & Al/Si & $0.81 \pm 0.11$ & $1.57 \pm 0.09$ \\
-            & Mg/Si & $0.40 \pm 0.14$ & $1.32 \pm 0.03$ \\
-            & Mg/Al & $0.49 \pm 0.20$ & $0.79 \pm 0.01$ \\
+        \multirow{3}{1.6cm}{Descartes Highlands}
+            & Al/Si & $0.81 \pm 0.11$ & $1.57 \pm 0.09$ & \revtwo{$1.94 \pm 0.29$} \\
+            & Mg/Si & $0.40 \pm 0.14$ & $1.32 \pm 0.03$ & \revtwo{$3.30 \pm 1.16$} \\
+            & Mg/Al & $0.49 \pm 0.20$ & $0.79 \pm 0.01$ & \revtwo{$1.61 \pm 0.66$} \\
         \hline
-        \multirow{3}{*}{Taurus-Littrow}
-            & Al/Si & $0.55 \pm 0.09$ & $1.12 \pm 0.03$ \\
-            & Mg/Si & $0.55 \pm 0.12$ & $1.15 \pm 0.07$ \\
-            & Mg/Al & $1.01 \pm 0.26$ & $1.06 \pm 0.04$ \\
+        \multirow{3}{1.6cm}{Taurus-Littrow}
+            & Al/Si & $0.55 \pm 0.09$ & $1.12 \pm 0.03$ & \revtwo{$2.04 \pm 0.34$} \\
+            & Mg/Si & $0.55 \pm 0.12$ & $1.15 \pm 0.07$ & \revtwo{$2.09 \pm 0.47$} \\
+            & Mg/Al & $1.01 \pm 0.26$ & $1.06 \pm 0.04$ & \revtwo{$1.05 \pm 0.27$} \\
         \hline
     \end{tabular}
-    \caption{Comparison of Al/Si, Mg/Si, and Mg/Al ratios between Apollo XRFS measurements and this work at the five sites mentioned in Table 3 of \citet{Gloudermans2021}.}
+    \caption{Comparison of Al/Si, Mg/Si, and Mg/Al ratios between Apollo XRFS measurements and this work at the five sites mentioned in Table 3 of \citet{Gloudermans2021}. \revtwo{The last column gives the ratio of our values to the Apollo values, with propagated uncertainties. The weighted means across the five sites are $1.96 \pm 0.17$ for Al/Si, $2.08 \pm 0.26$ for Mg/Si and $1.02 \pm 0.12$ for Mg/Al.}}
     \label{tab:apollo_comparison}
 \end{table}
 
+The maps in the polar regions (70 - 90$^\circ$) are also shown in the lower panel of Figure~\ref{fig:Mg_GIS}.  South Polar region has an average Mg/Al value of $0.73 \pm 0.12$ while it is $0.64 \pm 0.09$ for the North Polar region. In the 85-90$^\circ$ region where most of the future landing zones are located, the Mg/Al, Al/Si and Mg/Si ratios are similar for the polar regions. 
+
+Table~\ref{tab:average} gives the average values of Mg/Si, Al/Si and Mg/Al ratios for the polar regions, highlands and mare. \revone{As seen from Table~\ref{tab:apollo_comparison}, our values for the Al/Si and Mg/Si ratios are consistently higher than those derived from Apollo XRFS \citep{Gloudermans2021}.} \revtwo{The offset is a constant factor across the five sites, with weighted means of $1.96 \pm 0.17$ for Al/Si and $2.08 \pm 0.26$ for Mg/Si, rather than a terrane dependent difference. It likely arises because the CLASS quantum efficiency is reduced at the Si-K$\alpha$ line at $1.74$~keV, which falls between the Al K-edge of the optical blocking filter at $1.56$~keV and the Si K-edge of the detector at $1.84$~keV \citep[Figure~8]{PILLAI2021114436}, underestimating the Si line flux.} \revtwo{The gas proportional counters used in the Apollo missions are free of this effect.} \revtwo{Mg/Al, for which both line energies lie below the Al K-edge, is $1.02 \pm 0.12$ and shows no such offset.}
+
+  
+
+
+
 
 \section{Summary}
-We have developed a processing methodology to detect XRF signals from the CLASS calibrated spectral files and generate high-resolution maps of line intensity ratios. \revone{Unlike conventional analyses that rely on forward modeling of incident solar spectra to derive absolute abundances, our approach utilizes raw XRF line intensity ratios as a first-order proxy for surface composition. We show that even a simplified, model-free analysis of XRF line ratios can yield meaningful insights into the global distribution of lunar elements.} Using five years of CLASS data, global line intensity ratio maps of major elements are generated. The Mg/Al and Al/Si line intensity ratio \revone{maps show positive correlations} with abundance ratios in wt\% from return samples, as well as published CLASS elemental maps. The Mg/Al maps best represent the geochemical diversity that shows distinct regions that would be of interest for further, detailed studies.
+We have developed a processing methodology to detect XRF signals from the CLASS calibrated spectral files and generate high-resolution maps of line intensity ratios \revtwo{from five years of data}. \revone{Unlike conventional analyses that rely on forward modeling of incident solar spectra to derive absolute abundances, our approach utilizes raw XRF line intensity ratios as a proxy for surface composition.} \revtwo{This provides a useful first order picture of the global distribution of lunar elements. Since the method requires neither concurrent solar measurements nor spectra with sufficient statistics for a full spectral fit, a much larger fraction of the observations becomes usable, allowing these maps to be generated at a finer spatial scale.} The Mg/Al and Al/Si line intensity ratio \revone{maps show positive correlations} with abundance ratios in wt\% from return samples, as well as published CLASS elemental maps. The Mg/Al maps best represent the geochemical diversity that shows distinct regions that would be of interest for further, detailed studies.
 
 
 \facilities{Chandrayaan-2}
